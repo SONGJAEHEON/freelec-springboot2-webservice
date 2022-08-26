@@ -6,65 +6,83 @@ class main{
         if(document.getElementById('btn-update')){document.getElementById('btn-update').addEventListener('click', ()=>{
             this.update();
         })}
-        if(document.getElementById('btn-danger')){document.getElementById('btn-danger').addEventListener('click', ()=>{
+        if(document.getElementById('btn-delete')){document.getElementById('btn-delete').addEventListener('click', ()=>{
             this.delete();
         })}
     }
-    //TODO 20220822 21:20 Combine let variables directly into allocating statements.
     save() {
-        let httpRequest;
-        let title = document.getElementById('title').value;
-        let author = document.getElementById('author').value;
-        let content = document.getElementById('content').value;
-        let reqJson = {}; // = new Object();
-        reqJson.title = title;
-        reqJson.author = author;
-        reqJson.content = content;
+        let httpRequestForSave;
+        // let title = document.getElementById('title').value;
+        // let author = document.getElementById('author').value;
+        // let content = document.getElementById('content').value;
+        let reqJsonForSave = {}; // = new Object();
+        reqJsonForSave.title = document.getElementById('title').value;
+        reqJsonForSave.author = document.getElementById('author').value;
+        reqJsonForSave.content = document.getElementById('content').value;
 
-        httpRequest = new XMLHttpRequest();
-        httpRequest.onreadystatechange = () => {
-            if (httpRequest.readyState === XMLHttpRequest.DONE) {
-                if (httpRequest.status === 200) {
-                    // let result = httpRequest.response;
+        httpRequestForSave = new XMLHttpRequest();
+        httpRequestForSave.onreadystatechange = () => {
+            if (httpRequestForSave.readyState === XMLHttpRequest.DONE) {
+                if (httpRequestForSave.status === 200) {
+                    // let result = httpRequestForSave.response;
                     alert('글이 등록되었습니다.');
                     window.location.href = '/';
                 } else {
-                    alert('오류가 발생하였습니다. 에러 유형: ' + httpRequest.status);
+                    alert('오류가 발생하였습니다. 에러 유형: ' + httpRequestForSave.status);
                 }
             }
         };
-        httpRequest.open('POST', '/api/v1/posts', true);
-        httpRequest.responseType = 'json';
-        httpRequest.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-        httpRequest.send(JSON.stringify(reqJson));
+        httpRequestForSave.open('POST', '/api/v1/posts', true);
+        httpRequestForSave.responseType = 'json';
+        httpRequestForSave.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+        httpRequestForSave.send(JSON.stringify(reqJsonForSave));
     }
     update() {
-        let httpRequest2;
-        let title = document.getElementById('title').value;
-        let content = document.getElementById('content').value;
+        let httpRequestForUpdate;
+        // let title = document.getElementById('title').value;
+        // let content = document.getElementById('content').value;
         let id = document.getElementById('id').value;
-        let reqJson2 = {}; // = new Object();
-        reqJson2.title = title;
-        reqJson2.content = content;
+        let reqJsonForUpdate = {}; // = new Object();
+        reqJsonForUpdate.title = document.getElementById('title').value;
+        reqJsonForUpdate.content = document.getElementById('content').value;
 
-        httpRequest2 = new XMLHttpRequest();
-        httpRequest2.onreadystatechange = () => {
-            if (httpRequest2.readyState === XMLHttpRequest.DONE) {
-                if (httpRequest2.status === 200) {
-                    // let result = httpRequest.response;
+        httpRequestForUpdate = new XMLHttpRequest();
+        httpRequestForUpdate.onreadystatechange = () => {
+            if (httpRequestForUpdate.readyState === XMLHttpRequest.DONE) {
+                if (httpRequestForUpdate.status === 200) {
                     alert('글이 수정되었습니다.');
                     window.location.href = '/';
                 } else {
-                    alert('오류가 발생하였습니다. 에러 유형: ' + httpRequest2.status);
+                    alert('오류가 발생하였습니다. 에러 유형: ' + httpRequestForUpdate.status);
                 }
             }
         };
-        httpRequest2.open('PUT', '/api/v1/posts/' + id, true);
-        httpRequest2.responseType = 'json';
-        httpRequest2.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-        httpRequest2.send(JSON.stringify(reqJson2));
+        httpRequestForUpdate.open('PUT', '/api/v1/posts/' + id, true);
+        httpRequestForUpdate.responseType = 'json';
+        httpRequestForUpdate.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+        httpRequestForUpdate.send(JSON.stringify(reqJsonForUpdate));
     }
-    //TODO 20220822 21:20 Complete the 'function delete'
+    delete() {
+        let httpRequestForDelete;
+        let id = document.getElementById('id').value;
+        let reqJsonForDelete = {}; // = new Object();
+
+        httpRequestForDelete = new XMLHttpRequest();
+        httpRequestForDelete.onreadystatechange = () => {
+            if (httpRequestForDelete.readyState === XMLHttpRequest.DONE) {
+                if (httpRequestForDelete.status === 200) {
+                    alert('글이 삭제되었습니다.');
+                    window.location.href = '/';
+                } else {
+                    alert('오류가 발생하였습니다. 에러 유형: ' + httpRequestForDelete.status);
+                }
+            }
+        };
+        httpRequestForDelete.open('DELETE', '/api/v1/posts/' + id, true);
+        httpRequestForDelete.responseType = 'json';
+        httpRequestForDelete.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+        httpRequestForDelete.send(JSON.stringify(reqJsonForDelete));
+    }
 }
 
 const ma = new main();
