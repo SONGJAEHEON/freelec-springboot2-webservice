@@ -16,7 +16,7 @@ jobs:
       contents: read
       packages: write
     
-    environment: deploy.yml
+    environment: https://github.com/SONGJAEHEON/freelec-springboot2-webservice/deployments/activity_log?environment=deploy.yml
       
     steps:
     - name: Checkout
@@ -37,4 +37,5 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew clean build -x test
       shell: bash
+      
     
