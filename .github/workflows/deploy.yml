@@ -16,7 +16,7 @@ jobs:
       contents: read
       packages: write
     
-    environment: 'deploy.yml'
+    environment: deploy
       
     steps:
     - name: Checkout
