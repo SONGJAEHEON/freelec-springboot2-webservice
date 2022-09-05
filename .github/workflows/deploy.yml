@@ -16,7 +16,7 @@ jobs:
       contents: read
       packages: write
     
-    environment: https://github.com/SONGJAEHEON/freelec-springboot2-webservice/deployments/activity_log?environment=deploy.yml
+    environment: 'deploy.yml'
       
     steps:
     - name: Checkout
