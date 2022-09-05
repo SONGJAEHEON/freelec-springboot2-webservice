@@ -28,9 +28,7 @@ jobs:
       uses: actions/setup-java@v3
       with:
         distribution: 'corretto'
-        java-versoin: ${{  secrets.GITHUB_TOKEN.
-        #java-versoin: ${{ secrets.GITHUB_TOKEN }}
-       # java-version: ${{ secrets.JAVA_VERSION }}
+        java-versoin: ${{ secrets.JAVA_VERSION }}
     
     - name: Grant execute permission for gradlew
       run: chmod +x ./gradlew
