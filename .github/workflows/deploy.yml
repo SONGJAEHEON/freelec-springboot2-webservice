@@ -1,0 +1,38 @@
+# deploy.yml
+
+name: deploy-freelec
+
+on:
+  release:
+    types: [push] # occur on 'push' events.
+  push:
+    branches: [main] # act on 'main' branch.
+  workflow_dispatch: # github action can be run manually.
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest # github action script runs on linux(debian).
+    permissions:
+      contents: read
+      packages: write
+      
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      
+    # - name: Cache JDK
+      
+    - name: Set up JDK
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'corretto'
+        java-version: ${{ secrets.JAVA_VERSION }}
+    
+    - name: Grant execute permission for gradlew
+      run: chmod +x ./gradlew
+      shell: bash
+      
+    - name: Build with Gradle
+      run: ./gradlew clean build -x test
+      shell: bash
+    
