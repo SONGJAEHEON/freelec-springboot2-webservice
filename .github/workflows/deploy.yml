@@ -44,7 +44,6 @@ jobs:
       run: ./gradlew clean build -x test
       shell: bash
       
-      
     - name: Get current time
       uses: 1466587594/get-current-time@v2 # uses: adopting action which is already made.
       id: current-time
@@ -56,10 +55,21 @@ jobs:
       run: echo "CurrentTime=${{ steps.current-time.outputs.formattedTime }}" # Show the time as set format.
       shell: bash
       
+    - name: Generate deployment package # (final)
+      run: |
+        mkdir -p before-deploy
+        cp scripts/*.sh before-deploy/
+        cp appspec.yml before-deploy/
+        cp build/libs/*.jar before-deploy/
+        cd before-deploy && zip -r before-deploy *
+        cd ../ && mkdir -p deploy
+        mv before-deploy/before-deploy.zip deploy/$PROJECT_NAME.zip
+      shell: bash
+
     - name: Make zip file
       run: zip -r ./$PROJECT_NAME.zip .
       shell: bash
-      
+
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
