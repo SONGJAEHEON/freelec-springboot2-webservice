@@ -10,7 +10,7 @@ name: deploy-freelec  # the name that will be shown in Github Action
 
 on:
   release:
-    types: [push] # occur on 'push' events.
+    types: [published] # activity 'release''s key [action] doesn't include [push] event.
   push:
     branches: [main] # act on 'main' branch.
   workflow_dispatch: # enable github action that it be run manually.
